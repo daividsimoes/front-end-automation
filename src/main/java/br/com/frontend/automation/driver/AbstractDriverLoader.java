@@ -1,6 +1,6 @@
 package br.com.frontend.automation.driver;
 
-import br.com.frontend.automation.util.SOInfo;
+import br.com.frontend.automation.util.SOInfoUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -13,15 +13,15 @@ public class AbstractDriverLoader {
 
     protected String resolveInternalSo() {
 
-        if (SOInfo.isWindows()) {
+        if (SOInfoUtil.isWindows()) {
 
             log.info("Windows S.O");
             return WIN;
-        } else if (SOInfo.isLinux()) {
+        } else if (SOInfoUtil.isLinux()) {
 
             log.info("Linux S.O");
             return LINUX;
-        } else if (SOInfo.isMac()) {
+        } else if (SOInfoUtil.isMac()) {
 
             log.info("Mac S.O");
             return MAC;
