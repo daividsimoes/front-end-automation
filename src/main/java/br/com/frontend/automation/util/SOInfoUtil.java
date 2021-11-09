@@ -1,6 +1,6 @@
 package br.com.frontend.automation.util;
 
-public class SOInfo {
+public class SOInfoUtil {
 
     private static final String name = System.getProperty("os.name").toLowerCase();
 
