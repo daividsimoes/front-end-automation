@@ -20,11 +20,11 @@ public class SearchPage {
         pageUtil = new PageUtil(driver, wait);
     }
 
+    //FIXME NEED ADD A CHECK TO VALIDADE IF PAGE WAS LOADED
     public void clickFirstSearchedItem() {
 
         WebElement searchedElement = pageUtil.findElementBy(By.cssSelector(SearchPageLocator.SEARCHED_FIRST_ELEMENT));
         pageUtil.clickElement(searchedElement);
-        pageUtil.waitUntilPageIsLoaded();
     }
 
     public BigDecimal getFirstItemPrice() {

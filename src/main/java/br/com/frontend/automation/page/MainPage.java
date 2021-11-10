@@ -28,23 +28,18 @@ public class MainPage {
         pageUtil.addText(searchInputElement, text);
     }
 
+    //FIXME NEED ADD A CHECK TO VALIDADE IF PAGE WAS LOADED
     public void clickSearchButton() {
 
         WebElement searchButtonElement = pageUtil.findElementBy(By.xpath(MainPageLocator.SEARCH_SUBMIT_BUTTON));
         pageUtil.waitUntilElementIsClickable(searchButtonElement);
         pageUtil.clickElement(searchButtonElement);
-        pageUtil.waitUntilPageIsLoaded();
     }
 
+    //FIXME NEED ADD A CHECK TO VALIDADE IF PAGE WAS LOADED
     public void openCart() {
 
         WebElement countCart = pageUtil.findElementBy(By.xpath(MainPageLocator.CART_MENU));
         pageUtil.clickElement(countCart);
-    }
-
-    public void validateCartItemCount(int count) {
-
-
-
     }
 }
