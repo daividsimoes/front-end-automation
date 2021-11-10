@@ -1,5 +1,6 @@
 package br.com.frontend.automation.page;
 
+import br.com.frontend.automation.locator.ItemDetailLocator;
 import br.com.frontend.automation.locator.SearchPageLocator;
 import br.com.frontend.automation.util.PageUtil;
 import br.com.frontend.automation.util.StringUtil;
@@ -19,17 +20,19 @@ public class SearchPage {
     @FindBy(css = SearchPageLocator.SEARCHED_FIRST_ELEMENT)
     private WebElement searchedElement;
 
+    @FindBy(css = ItemDetailLocator.BOX_ITEM_INFORMATION)
+    private WebElement boxItemInformation;
+
     public SearchPage(WebDriver driver, WebDriverWait wait) {
 
         PageFactory.initElements(driver, this);
         pageUtil = new PageUtil(driver, wait);
     }
 
-    //FIXME NEED ADD A CHECK TO VALIDADE IF PAGE WAS LOADED
     public void clickFirstSearchedItem() {
 
-//        searchedElement = pageUtil.findElementBy(By.cssSelector(SearchPageLocator.SEARCHED_FIRST_ELEMENT));
         pageUtil.clickElement(searchedElement);
+        pageUtil.waitUntilAllElementsVisible(boxItemInformation);
     }
 
     public BigDecimal getFirstItemPrice() {

@@ -27,14 +27,12 @@ public class ItemDetailPage {
 
     public void selectItemQuantity(int quantity) {
 
-//        dropDownElement = pageUtil.findElementBy(By.cssSelector(ItemDetailLocator.SELECT_QUANTITY));
         Select dropDownSelect = pageUtil.getDropDownElement(dropDownElement);
         pageUtil.selectDropDownElementByValue(dropDownSelect, String.valueOf(quantity));
     }
 
     public void clickAddCartButton() {
 
-//        addCartoButton = pageUtil.findElementBy(By.cssSelector(ItemDetailLocator.ADD_CART_INPUT_BUTTON));
         pageUtil.clickElement(addCartoButton);
     }
 }

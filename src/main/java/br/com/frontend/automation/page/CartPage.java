@@ -44,8 +44,8 @@ public class CartPage {
 
     public void selectItemQuantity(int quantity) {
 
-//        dropDownElement = pageUtil.findElementBy(By.id(CartLocator.SELECT_QUANTITY));
         Select dropDownSelect = pageUtil.getDropDownElement(dropDownElement);
         pageUtil.selectDropDownElementByValue(dropDownSelect, String.valueOf(quantity));
+        pageUtil.waitUntilTextNotBePresentInElement(subTotalItem, getCartItemsText());
     }
 }

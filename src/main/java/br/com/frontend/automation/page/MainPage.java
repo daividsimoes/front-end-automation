@@ -1,6 +1,8 @@
 package br.com.frontend.automation.page;
 
+import br.com.frontend.automation.locator.CartLocator;
 import br.com.frontend.automation.locator.MainPageLocator;
+import br.com.frontend.automation.locator.SearchPageLocator;
 import br.com.frontend.automation.util.PageUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +24,15 @@ public class MainPage {
     @FindBy(xpath = MainPageLocator.CART_MENU)
     private WebElement countCart;
 
+    @FindBy(css = SearchPageLocator.ITEM_GRID)
+    private WebElement itemGrid;
+
+    @FindBy(xpath = CartLocator.ITEM_INFORMATION)
+    private WebElement itemInformation;
+
+    @FindBy(id = CartLocator.BUY_BOX)
+    private WebElement buyBox;
+
     public MainPage(WebDriver driver, WebDriverWait wait) {
 
         PageFactory.initElements(driver, this);
@@ -35,22 +46,19 @@ public class MainPage {
 
     public void addSearchText(String text) {
 
-//        searchInputElement = pageUtil.findElementBy(By.xpath(MainPageLocator.SEARCH_INPUT));
         pageUtil.addText(searchInputElement, text);
     }
 
-    //FIXME NEED ADD A CHECK TO VALIDADE IF PAGE WAS LOADED
     public void clickSearchButton() {
 
-//        searchButtonElement = pageUtil.findElementBy(By.xpath(MainPageLocator.SEARCH_SUBMIT_BUTTON));
         pageUtil.waitUntilElementIsClickable(searchButtonElement);
         pageUtil.clickElement(searchButtonElement);
+        pageUtil.waitUntilAllElementsVisible(itemGrid);
     }
 
-    //FIXME NEED ADD A CHECK TO VALIDADE IF PAGE WAS LOADED
     public void openCart() {
 
-//        countCart = pageUtil.findElementBy(By.xpath(MainPageLocator.CART_MENU));
         pageUtil.clickElement(countCart);
+        pageUtil.waitUntilAllElementsVisible(itemInformation, buyBox);
     }
 }

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -30,9 +31,14 @@ public class PageUtil {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public WebElement findElementBy(By locator) {
+    public void waitUntilAllElementsVisible(WebElement... element){
 
-        return driver.findElement(locator);
+        wait.until(ExpectedConditions.visibilityOfAllElements(element));
+    }
+
+    public void waitUntilTextNotBePresentInElement(WebElement element, String text) {
+
+        waitUntilConditionNotBeValid(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
     public void clickElement(WebElement element) {
@@ -67,4 +73,15 @@ public class PageUtil {
         return ((JavascriptExecutor) driver)
                 .executeScript(command);
     }
+
+    private void waitUntilConditionNotBeValid(ExpectedCondition<?> condition) {
+
+        wait.until(ExpectedConditions.not(condition));
+    }
+
+//    Changed to use PageFactory instead of this method
+//    public WebElement findElementBy(By locator) {
+//
+//        return driver.findElement(locator);
+//    }
 }
