@@ -2,6 +2,7 @@ package br.com.frontend.automation.locator;
 
 public class ItemDetailLocator {
 
-    public static final String SELECT_QUANTITY = "//select[@id='quantity']";
-    public static final String ADD_CART_INPUT_BUTTON = "//input[@id='add-to-cart-button']";
+    //CSS ID SELECTOR
+    public static final String SELECT_QUANTITY = "select#quantity";
+    public static final String ADD_CART_INPUT_BUTTON = "input#add-to-cart-button";
 }
