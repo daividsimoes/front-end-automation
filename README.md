@@ -3,6 +3,7 @@
 # Requirements
 1. JDK 1.8
 2. Maven
+3. Git
 4. Chrome version 95.x
 5. IntelliJ IDE (optional)
 
