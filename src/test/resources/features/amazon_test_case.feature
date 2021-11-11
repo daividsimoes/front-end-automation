@@ -1,4 +1,3 @@
-@setUp @tearDown
 Feature: Amazon Test Case
 
   Scenario: Validate if total price and quantity has been correctly changed

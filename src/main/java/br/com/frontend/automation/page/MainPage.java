@@ -4,6 +4,7 @@ import br.com.frontend.automation.locator.CartLocator;
 import br.com.frontend.automation.locator.MainPageLocator;
 import br.com.frontend.automation.locator.SearchPageLocator;
 import br.com.frontend.automation.util.PageUtil;
+import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,7 +34,7 @@ public class MainPage {
     @FindBy(id = CartLocator.BUY_BOX)
     private WebElement buyBox;
 
-    public MainPage(WebDriver driver, WebDriverWait wait) {
+    public MainPage(WebDriver driver, WebDriverWait wait)  {
 
         PageFactory.initElements(driver, this);
         pageUtil = new PageUtil(driver, wait);

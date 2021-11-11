@@ -15,7 +15,9 @@
         <slf4j-version>1.7.26</slf4j-version>
         <junit.version>4.13.1</junit.version>
         <selenium.version>3.141.59</selenium.version>
-        <cucumber.version>4.3.0</cucumber.version>
+        <cucumber.version>6.9.0</cucumber.version>
+        <extentreports.version>5.0.6</extentreports.version>
+        <commons-io.version>2.4</commons-io.version>
     </properties>
 
     <dependencies>
@@ -54,6 +56,18 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
     </dependencies>
 

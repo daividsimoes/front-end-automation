@@ -1,19 +1,23 @@
 package br.com.frontend.automation.test.step;
 
+import br.com.frontend.automation.CucumberReport;
 import br.com.frontend.automation.driver.ChromeWebDriver;
 import br.com.frontend.automation.driver.DriverWait;
+import br.com.frontend.automation.enums.GherkinKey;
 import br.com.frontend.automation.enums.Message;
 import br.com.frontend.automation.page.CartPage;
 import br.com.frontend.automation.page.ItemDetailPage;
 import br.com.frontend.automation.page.MainPage;
 import br.com.frontend.automation.page.SearchPage;
 import br.com.frontend.automation.util.StringUtil;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.But;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import io.cucumber.java.en.But;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -33,8 +37,14 @@ public class AmazonStepDefinition {
     private int itemCount;
     private BigDecimal price;
 
-    @Before("@setUp")
-    public void setUp() {
+    private CucumberReport report;
+    private Scenario scenario;
+
+    @Before
+    public void setUp(Scenario testScenario) {
+
+        scenario = testScenario;
+        report = new CucumberReport(scenario);
 
         driver = new ChromeWebDriver().webDriver();
         wait = new DriverWait(driver).webDriverWait();
@@ -44,8 +54,11 @@ public class AmazonStepDefinition {
         cartPage = new CartPage(driver, wait);
     }
 
-    @After("@tearDown")
-    public void tearDown() {
+    @After
+    public void tearDown(Scenario testScenario) {
+
+        scenario = testScenario;
+        report = new CucumberReport(scenario, scenario.getStatus());
 
         if (driver != null) {
             driver.quit();
@@ -59,6 +72,8 @@ public class AmazonStepDefinition {
         mainPage.openAmazonPage();
         mainPage.addSearchText(search);
         mainPage.clickSearchButton();
+
+        CucumberReport.report(GherkinKey.GIVEN.getKey());
     }
 
     @Given("I add the first hat appearing to Cart twice")
@@ -69,12 +84,16 @@ public class AmazonStepDefinition {
         searchPage.clickFirstSearchedItem();
         itemDetailPage.selectItemQuantity(itemCount);
         itemDetailPage.clickAddCartButton();
+
+        CucumberReport.report(GherkinKey.GIVEN.getKey());
     }
 
     @When("I open the cart")
     public void i_open_the_cart() {
 
         mainPage.openCart();
+
+        CucumberReport.report(GherkinKey.WHEN.getKey());
     }
 
     @Then("total price and quantity should be correct")
@@ -82,11 +101,12 @@ public class AmazonStepDefinition {
 
         String cartItemsText = cartPage.getCartItemsText();
         BigDecimal cartAmount = cartPage.getCartAmount();
-
         String formattedMessage = StringUtil.normalizeText(Message.CART_SUB_ITEMS.getMessage(), itemCount);
 
         assertEquals(formattedMessage, cartItemsText);
         assertEquals(price.multiply(new BigDecimal(itemCount)), cartAmount);
+
+        CucumberReport.report(GherkinKey.THEN.getKey());
     }
 
     @Then("total price and quantity should be changed")
@@ -97,6 +117,8 @@ public class AmazonStepDefinition {
 
         assertEquals(Message.CART_SUB_ITEM.getMessage(), cartItemsText);
         assertEquals(price.multiply(new BigDecimal(itemCount)), cartAmount);
+
+        CucumberReport.report(GherkinKey.THEN.getKey());
     }
 
     @But("if I reduce the quantity to {int} item in the Cart")
@@ -104,5 +126,7 @@ public class AmazonStepDefinition {
 
         itemCount = quantity;
         cartPage.selectItemQuantity(itemCount);
+
+        CucumberReport.report(GherkinKey.BUT.getKey());
     }
 }
