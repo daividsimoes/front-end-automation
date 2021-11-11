@@ -5,9 +5,9 @@ import java.text.MessageFormat;
 
 public class StringUtil {
 
-    public static String normalizeText(String locator, Object... args) {
+    public static String normalizeText(String text, Object... args) {
 
-        return MessageFormat.format(locator, args);
+        return MessageFormat.format(text, args);
     }
 
     public static BigDecimal normalizePriceValue(String price) {

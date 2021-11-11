@@ -1,6 +1,5 @@
 package br.com.frontend.automation.util;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,42 +22,54 @@ public class PageUtil {
     public void openPage(String url) {
 
         driver.get(url);
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+
         waitUntilPageIsLoaded();
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
     }
 
     public void waitUntilElementIsClickable(WebElement element) {
 
         wait.until(ExpectedConditions.elementToBeClickable(element));
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
     }
 
     public void waitUntilAllElementsVisible(WebElement... element){
 
         wait.until(ExpectedConditions.visibilityOfAllElements(element));
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
     }
 
     public void waitUntilTextNotBePresentInElement(WebElement element, String text) {
 
         waitUntilConditionNotBeValid(ExpectedConditions.textToBePresentInElement(element, text));
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
     }
 
     public void clickElement(WebElement element) {
 
         element.click();
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
     }
 
     public void addText(WebElement element, String text) {
 
         element.sendKeys(text);
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
     }
 
     public Select getDropDownElement(WebElement element) {
 
-        return new Select(element);
+        Select select = new Select(element);
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+
+        return select;
     }
 
     public void selectDropDownElementByValue(Select dropDown, String value) {
 
         dropDown.selectByValue(value);
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
     }
 
     public void waitUntilPageIsLoaded() {
@@ -77,11 +88,15 @@ public class PageUtil {
     private void waitUntilConditionNotBeValid(ExpectedCondition<?> condition) {
 
         wait.until(ExpectedConditions.not(condition));
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
     }
 
 //    Changed to use PageFactory instead of this method
 //    public WebElement findElementBy(By locator) {
 //
-//        return driver.findElement(locator);
+//        WebElement element = driver.findElement(locator);
+//        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+//
+//        return element;
 //    }
 }

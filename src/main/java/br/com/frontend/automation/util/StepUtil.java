@@ -6,9 +6,7 @@ import io.cucumber.plugin.event.EventPublisher;
 import io.cucumber.plugin.event.PickleStepTestStep;
 import io.cucumber.plugin.event.TestStepStarted;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -44,7 +42,7 @@ public class StepUtil implements ConcurrentEventListener {
 
         try {
 
-            FileWriter writer = new FileWriter("target/step.txt");
+            FileWriter writer = new FileWriter("target/step.txt", true);
             writer.write(file);
             writer.write(System.getProperty("line.separator"));
             writer.flush();
@@ -52,20 +50,6 @@ public class StepUtil implements ConcurrentEventListener {
         } catch (IOException ex) {
 
             throw new RuntimeException(ex.getMessage());
-        }
-    }
-
-    private void deleteFile(String path) {
-
-        log.info("Delete file from path: {}", path);
-        File folder = new File(path);
-
-        if(folder.isDirectory()) {
-
-            File[] sun = folder.listFiles();
-            for (File toDelete : sun) {
-                toDelete.delete();
-            }
         }
     }
 }

@@ -43,22 +43,22 @@ public class AmazonStepDefinition {
     @Before
     public void setUp(Scenario testScenario) {
 
-        scenario = testScenario;
-        report = new CucumberReport(scenario);
-
         driver = new ChromeWebDriver().webDriver();
         wait = new DriverWait(driver).webDriverWait();
         mainPage = new MainPage(driver, wait);
         searchPage = new SearchPage(driver, wait);
         itemDetailPage = new ItemDetailPage(driver, wait);
         cartPage = new CartPage(driver, wait);
+
+        scenario = testScenario;
+        report = new CucumberReport(scenario.getName());
     }
 
     @After
     public void tearDown(Scenario testScenario) {
 
         scenario = testScenario;
-        report = new CucumberReport(scenario, scenario.getStatus());
+        report = new CucumberReport(scenario);
 
         if (driver != null) {
             driver.quit();
@@ -73,7 +73,7 @@ public class AmazonStepDefinition {
         mainPage.addSearchText(search);
         mainPage.clickSearchButton();
 
-        CucumberReport.report(GherkinKey.GIVEN.getKey());
+        CucumberReport.report("I perform a search for 'hats for men'");
     }
 
     @Given("I add the first hat appearing to Cart twice")
@@ -85,7 +85,7 @@ public class AmazonStepDefinition {
         itemDetailPage.selectItemQuantity(itemCount);
         itemDetailPage.clickAddCartButton();
 
-        CucumberReport.report(GherkinKey.GIVEN.getKey());
+        CucumberReport.report("I add the first hat appearing to Cart twice");
     }
 
     @When("I open the cart")
@@ -93,7 +93,7 @@ public class AmazonStepDefinition {
 
         mainPage.openCart();
 
-        CucumberReport.report(GherkinKey.WHEN.getKey());
+        CucumberReport.report("I open the cart");
     }
 
     @Then("total price and quantity should be correct")
@@ -106,7 +106,7 @@ public class AmazonStepDefinition {
         assertEquals(formattedMessage, cartItemsText);
         assertEquals(price.multiply(new BigDecimal(itemCount)), cartAmount);
 
-        CucumberReport.report(GherkinKey.THEN.getKey());
+        CucumberReport.report("total price and quantity should be correct");
     }
 
     @Then("total price and quantity should be changed")
@@ -118,7 +118,7 @@ public class AmazonStepDefinition {
         assertEquals(Message.CART_SUB_ITEM.getMessage(), cartItemsText);
         assertEquals(price.multiply(new BigDecimal(itemCount)), cartAmount);
 
-        CucumberReport.report(GherkinKey.THEN.getKey());
+        CucumberReport.report("total price and quantity should be changed");
     }
 
     @But("if I reduce the quantity to {int} item in the Cart")
@@ -127,6 +127,8 @@ public class AmazonStepDefinition {
         itemCount = quantity;
         cartPage.selectItemQuantity(itemCount);
 
-        CucumberReport.report(GherkinKey.BUT.getKey());
+        String reportMessage = StringUtil.normalizeText("if I reduce the quantity to {0} item in the Cart",
+                itemCount);
+        CucumberReport.report(reportMessage);
     }
 }

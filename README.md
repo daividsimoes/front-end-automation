@@ -6,7 +6,6 @@
 4. Chrome version 95.x
 5. IntelliJ IDE (optional)
 
-
 # How to run using Maven
 - Clone project: https://github.com/daividsimoes/front-end-automation.git
 - Go to project directory
@@ -22,3 +21,7 @@
 - Delete 'target' folder
 - Execute: mvn clean
 - Execute: mvn install
+
+# Report
+- A report will be generated on {Project_Folder}/target/report/report.html
+- Report screenshot will be storage on {Project_Folder}/target/report/screenshots

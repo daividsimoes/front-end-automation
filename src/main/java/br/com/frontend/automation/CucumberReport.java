@@ -1,46 +1,41 @@
 package br.com.frontend.automation;
 
-import br.com.frontend.automation.util.StepUtil;
+import br.com.frontend.automation.util.PageUtil;
+import br.com.frontend.automation.util.ScreenShotReportUtil;
+import br.com.frontend.automation.util.StringUtil;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.cucumber.java.Scenario;
-import io.cucumber.java.Status;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.MessageFormat;
+import java.io.File;
 
+@Slf4j
 public class CucumberReport {
 
     private static ExtentReports extent;
     private static ExtentTest logger;
 
-    private static FileReader fileReader;
-    private static BufferedReader bufferedReader;
-    private static String textStep;
-
-    public CucumberReport(Scenario scenario, Status status) {
+    public CucumberReport(Scenario scenario) {
 
         if (scenario.isFailed()) {
 
-            logger.fail("Status: " + status);
+            logger.fail(StringUtil.normalizeText("Method Failed: {0}", ScreenShotReportUtil.methodName));
+            logger.addScreenCaptureFromPath(ScreenShotReportUtil.pathCapture);
         }
+
         extent.flush();
     }
 
-    public CucumberReport(Scenario scenario) {
+    public CucumberReport(String scenarioName) {
 
-        logger = extent.createTest(scenario.getName());
+        logger = extent.createTest(scenarioName);
     }
 
-    public static void init() {
+    public static void setup() {
 
         ExtentSparkReporter reporter = new ExtentSparkReporter("target/report/report.html");
         reporter.config().setDocumentTitle("Cucumber Report");
@@ -53,21 +48,26 @@ public class CucumberReport {
         extent.setSystemInfo("User", System.getProperty("user.name"));
     }
 
-    public static void report(String stepType) {
+    public static void report(String message) {
 
-        try {
-            fileReader = new FileReader("target/step.txt");
-            bufferedReader = new BufferedReader(fileReader);
-            while ((textStep = bufferedReader.readLine()) != null) {
+        logger.pass(StringUtil.normalizeText("Step executed: {0}", message));
+        extent.flush();
+    }
 
-                if (textStep.contains(stepType)) {
+    public static void remove(File file) {
 
-                    logger.pass(StepUtil.gherking);
-                }
+        if (file.isDirectory()) {
+
+            log.info("Deleting files on folder: {}", file);
+            File[] sun = file.listFiles();
+            for (File toDelete : sun) {
+
+                remove(toDelete);
             }
-        }catch (IOException ex){
+        } else {
 
-            throw new RuntimeException(ex.getMessage());
+            log.info("Deleting file: {}", file);
+            file.delete();
         }
     }
 }
