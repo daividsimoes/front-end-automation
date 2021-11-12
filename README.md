@@ -8,14 +8,14 @@
 5. IntelliJ IDE (optional)
 
 # How to run using Maven
-- Clone project: https://github.com/daividsimoes/front-end-automation.git
+- Clone project: git clone https://github.com/daividsimoes/front-end-automation.git
 - Go to project directory
 - Execute the command: mvn test or mvn clean test
 
 Note: At first run, maven will download all dependencies
 
 # How to run using IntelliJ IDE
-- Clone project: https://github.com/daividsimoes/front-end-automation.git
+- Clone project: git clone https://github.com/daividsimoes/front-end-automation.git
 - Open project in IntelliJ IDE
 - Right click on Runner class: src/test/java/br/com/frontend/automation/test/runner/AmazonRunnerTest.java
 - Click: Run 'AmazonRunnerTest.java'
