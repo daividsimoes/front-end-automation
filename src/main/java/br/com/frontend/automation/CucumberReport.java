@@ -1,15 +1,14 @@
 package br.com.frontend.automation;
 
-import br.com.frontend.automation.util.PageUtil;
 import br.com.frontend.automation.util.ScreenShotReportUtil;
 import br.com.frontend.automation.util.StringUtil;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.cucumber.java.Scenario;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.WebDriver;
 
 import java.io.File;
 
@@ -23,8 +22,8 @@ public class CucumberReport {
 
         if (scenario.isFailed()) {
 
-            logger.fail(StringUtil.normalizeText("Method Failed: {0}", ScreenShotReportUtil.methodName));
-            logger.addScreenCaptureFromPath(ScreenShotReportUtil.pathCapture);
+            logger.fail(StringUtil.normalizeText("Method Failed: {0}", ScreenShotReportUtil.methodName),
+                    MediaEntityBuilder.createScreenCaptureFromPath(ScreenShotReportUtil.pathCapture).build());
         }
 
         extent.flush();
@@ -50,7 +49,8 @@ public class CucumberReport {
 
     public static void report(String message) {
 
-        logger.pass(StringUtil.normalizeText("Step executed: {0}", message));
+        logger.pass(StringUtil.normalizeText("Step executed: {0}", message),
+                MediaEntityBuilder.createScreenCaptureFromPath(ScreenShotReportUtil.pathCapture).build());
         extent.flush();
     }
 

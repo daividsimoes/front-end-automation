@@ -36,7 +36,7 @@ public class ScreenShotReportUtil {
     public static void takeScreenShotAndGetMethodName(WebDriver driver) {
 
         methodName = new Throwable()
-                .getStackTrace()[0]
+                .getStackTrace()[1]
                 .getMethodName();
 
         ScreenShotReportUtil.pathCapture = ScreenShotReportUtil.captureScreen(driver);

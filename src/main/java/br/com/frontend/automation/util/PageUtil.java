@@ -21,55 +21,55 @@ public class PageUtil {
 
     public void openPage(String url) {
 
+        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
         driver.get(url);
-        ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
 
-        waitUntilPageIsLoaded();
         ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+        waitUntilPageIsLoaded();
     }
 
     public void waitUntilElementIsClickable(WebElement element) {
 
-        wait.until(ExpectedConditions.elementToBeClickable(element));
         ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public void waitUntilAllElementsVisible(WebElement... element){
 
-        wait.until(ExpectedConditions.visibilityOfAllElements(element));
         ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+        wait.until(ExpectedConditions.visibilityOfAllElements(element));
     }
 
     public void waitUntilTextNotBePresentInElement(WebElement element, String text) {
 
-        waitUntilConditionNotBeValid(ExpectedConditions.textToBePresentInElement(element, text));
         ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+        waitUntilConditionNotBeValid(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
     public void clickElement(WebElement element) {
 
-        element.click();
         ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+        element.click();
     }
 
     public void addText(WebElement element, String text) {
 
-        element.sendKeys(text);
         ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+        element.sendKeys(text);
     }
 
     public Select getDropDownElement(WebElement element) {
 
-        Select select = new Select(element);
         ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+        Select select = new Select(element);
 
         return select;
     }
 
     public void selectDropDownElementByValue(Select dropDown, String value) {
 
-        dropDown.selectByValue(value);
         ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+        dropDown.selectByValue(value);
     }
 
     public void waitUntilPageIsLoaded() {
@@ -87,8 +87,9 @@ public class PageUtil {
 
     private void waitUntilConditionNotBeValid(ExpectedCondition<?> condition) {
 
-        wait.until(ExpectedConditions.not(condition));
         ScreenShotReportUtil.takeScreenShotAndGetMethodName(driver);
+        wait.until(ExpectedConditions.not(condition));
+
     }
 
 //    Changed to use PageFactory instead of this method
